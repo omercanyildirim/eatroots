@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roots — Real Food, Real Strength</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1F3A2E;
+    --green-deep:#0F1E17;
+    --cream:#F3ECDD;
+    --paper:#FBF8F1;
+    --cacao:#3B2216;
+    --terracotta:#B8552E;
+    --gold:#C9A227;
+    --blueberry:#4B4A8A;
+    --ink:#16241C;
+    --sub:#5B6B60;
+    --line:rgba(31,58,46,.12);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --container: 1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ font-family:'Fraunces',serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; overflow-x:clip; }
+  a{ color:inherit; text-decoration:none; }
+  .display{ font-family:'Fraunces',serif; font-weight:600; line-height:1.08; letter-spacing:-0.01em; }
+  .italic{ font-family:'Fraunces',serif; font-style:italic; font-weight:450; }
+  .mono{ font-family:'Fraunces',serif; }
+  .container{ max-width:var(--container); margin:0 auto; padding:0 24px; }
+
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  .reveal{ opacity:0; transform:translateY(40px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-scale{ opacity:0; transform:scale(0.94); transition:opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+  .reveal-scale.in{ opacity:1; transform:scale(1); }
+  .reveal-stagger > *{ opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal-stagger.in > *{ opacity:1; transform:translateY(0); }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay:.04s; }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay:.10s; }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay:.16s; }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay:.22s; }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay:.28s; }
+  .reveal-stagger.in > *:nth-child(6){ transition-delay:.34s; }
+
+  .site-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 24px; max-width:var(--container); margin:0 auto;
+  }
+  .nav-logo{ font-family:'Fraunces',serif; font-weight:700; font-size:22px; color:var(--green); }
+  .nav-links{ display:flex; gap:32px; }
+  .nav-links a{ font-family:'Fraunces',serif; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--green); font-weight:700; opacity:.7; padding-bottom:3px; border-bottom:2px solid transparent; transition:opacity .3s, border-color .3s; }
+  .nav-links a.active, .nav-links a:hover{ opacity:1; color:var(--terracotta); border-color:var(--terracotta); }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .nav-lang{ font-family:'Fraunces',serif; font-size:12px; font-weight:700; color:var(--sub); transition:color .3s; }
+  .nav-lang:hover{ color:var(--terracotta); }
+  .nav-cta{ font-family:'Fraunces',serif; font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; background:var(--green); color:var(--cream); padding:11px 22px; border-radius:100px; transition:transform .4s var(--ease), box-shadow .4s var(--ease); }
+  .nav-cta:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 12px 26px rgba(31,58,46,.28); }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; margin-right:auto; margin-left:14px; }
+  .nav-toggle svg{ width:24px; height:24px; display:block; }
+  .nav-wrap{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(251,248,241,.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  #nav-spacer{ width:100%; }
+
+  .tab-banner{ min-height:440px; display:flex; align-items:center; padding:70px 24px; border-bottom:1px solid var(--line); }
+  .tab-banner-inner{ max-width:var(--container); margin:0 auto; width:100%; }
+  .banner-flex{ display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+  .banner-copy{ flex:1 1 420px; }
+  .banner-visual{ flex:0 0 280px; position:relative; height:220px; display:flex; align-items:center; justify-content:center; }
+  .banner-visual .hv-item{ position:absolute; }
+  .eyebrow{ font-family:'Fraunces',serif; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--terracotta); font-weight:700; }
+
+  .btn{ font-family:'Fraunces',serif; font-size:12px; letter-spacing:.05em; text-transform:uppercase; padding:15px 30px; border-radius:100px; display:inline-block; font-weight:700; transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s, color .3s; border:none; cursor:pointer; }
+  .btn-primary{ background:var(--green); color:var(--cream); }
+  .btn-primary:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 16px 32px rgba(31,58,46,.28); }
+  .btn-outline{ border:1.5px solid var(--green); color:var(--green); background:none; }
+  .btn-outline:hover{ transform:translateY(-3px) scale(1.03); background:var(--green); color:var(--cream); }
+
+  .home-hero-copy{ max-width:640px; }
+  .home-hero-copy h1{ font-size:clamp(30px,4.4vw,50px); margin-bottom:14px; }
+  .home-hero-copy .italic{ font-size:18px; color:var(--sub); margin-bottom:18px; display:block; }
+  .home-hero-copy p{ font-size:15px; line-height:1.7; color:var(--sub); margin-bottom:28px; max-width:480px; }
+
+  .newsletter-label{ font-family:'Fraunces',serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green); font-weight:700; margin-bottom:12px; display:block; }
+  .newsletter-inline{ display:flex; gap:10px; flex-wrap:wrap; max-width:420px; }
+  .newsletter-inline input{
+    flex:1; min-width:200px; padding:15px 18px; border-radius:100px; border:1.5px solid var(--line);
+    font-family:'Fraunces',serif; font-size:14px; background:#fff; color:var(--ink);
+    transition:border-color .3s;
+  }
+  .newsletter-inline input:focus{ outline:none; border-color:var(--terracotta); }
+
+  .marquee{ overflow:hidden; white-space:nowrap; background:var(--green); border-bottom:1px solid var(--line); }
+  .marquee-track{ display:inline-flex; animation:scroll 34s linear infinite; }
+  .marquee-track span{ font-family:'Fraunces',serif; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream); font-weight:700; padding:15px 24px; display:inline-flex; align-items:center; gap:24px; }
+  .marquee-track span::after{ content:'✦'; margin-left:24px; color:var(--gold); font-size:9px; }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  section{ padding:90px 24px; border-bottom:1px solid var(--line); }
+  .section-head{ max-width:600px; margin-bottom:52px; }
+  .section-head h2{ font-size:clamp(26px,3.6vw,38px); color:var(--green); margin-top:14px; }
+  .section-head.split{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; }
+
+  .phil-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:40px; }
+  .phil-card svg{ width:32px; height:32px; margin-bottom:16px; }
+  .phil-card h3{ font-family:'Fraunces',serif; font-weight:600; font-size:18px; margin-bottom:8px; color:var(--green); }
+  .phil-card p{ font-size:13.5px; line-height:1.65; color:var(--sub); max-width:270px; }
+
+  .pkg{ position:relative; border-radius:18px; padding:22px 18px 20px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 22px 50px -16px rgba(0,0,0,.35); }
+  .pkg::before{ content:''; position:absolute; top:-40%; left:-20%; width:60%; height:180%; background:linear-gradient(115deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,0) 40%); transform:rotate(8deg); pointer-events:none; }
+  .pkg.cream{ background:linear-gradient(180deg,#FAF6EC,#EDE4D0); color:var(--green); }
+  .pkg.dark{ background:linear-gradient(180deg,#254535,#152A21); color:var(--cream); }
+  .pkg.cacao{ background:linear-gradient(180deg,#4A2C1D,#241209); color:var(--cream); border-radius:22px; }
+  .pkg.terracotta{ background:linear-gradient(180deg,#C6633B,#A24625); color:var(--cream); border-radius:110px 110px 18px 18px; padding-top:36px; }
+  .pkg.wheel{ background:linear-gradient(180deg,#FAF6EC,#EDE4D0); color:var(--green); border-radius:50%; align-items:center; justify-content:center; text-align:center; border:6px solid var(--terracotta); }
+  .pkg.bottle{ background:linear-gradient(180deg,#57529E,#332F63); color:var(--cream); border-radius:22px 22px 48px 48px; align-items:center; }
+  .pkg-eyebrow{ font-family:'Fraunces',serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; text-align:center; opacity:.9; position:relative; font-weight:700; }
+  .pkg-word{ font-family:'Fraunces',serif; font-weight:700; text-align:center; line-height:1; margin-top:6px; position:relative; }
+  .pkg-flavor{ font-family:'Fraunces',serif; font-style:italic; text-align:center; margin-top:8px; position:relative; }
+  .pkg-icon{ display:flex; justify-content:center; align-items:center; margin:12px 0; position:relative; flex:1; }
+  .pkg-icon svg{ width:48px; height:48px; }
+  .pkg-seg{ display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-top:12px; position:relative; }
+  .pkg-seg div{ aspect-ratio:1; border:1.3px solid rgba(255,255,255,.3); border-radius:4px; }
+  .pkg-twin{ display:flex; gap:6px; justify-content:center; margin-top:12px; position:relative; }
+  .pkg-twin div{ width:22px; height:58px; background:rgba(255,255,255,.16); border-radius:5px; }
+  .pkg-cap{ width:32px; height:14px; background:var(--gold); border-radius:6px 6px 2px 2px; margin:0 auto; }
+  .pkg-neck{ width:22px; height:10px; background:#332F63; margin:-1px auto 0; }
+
+  .carousel-wrap{ overflow-x:auto; padding:4px 4px 20px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+  .carousel-track{ display:flex; gap:22px; }
+  .carousel-track .feat-card{ flex:0 0 230px; scroll-snap-align:start; }
+  .carousel-wrap::-webkit-scrollbar{ height:8px; }
+  .carousel-wrap::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  .feat-card{ border:1px solid var(--line); border-radius:16px; padding:24px 20px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; background:#fff; transition:transform .5s var(--ease), box-shadow .5s var(--ease); cursor:pointer; }
+  .feat-card:hover{ transform:translateY(-8px); box-shadow:0 24px 46px -16px rgba(31,58,46,.22); }
+  .feat-card .pkg{ width:120px; min-height:160px; margin-bottom:16px; }
+  .feat-card .pkg.wheel{ width:112px; height:112px; }
+  .feat-name{ font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--green); margin-bottom:3px; }
+  .feat-flavor{ font-family:'Fraunces',serif; font-size:10.5px; color:var(--terracotta); margin-bottom:10px; font-weight:700; }
+  .feat-price{ font-family:'Fraunces',serif; font-size:13px; font-weight:700; color:var(--green); margin-top:auto; padding-top:12px; }
+
+  .faq-item{ border-top:1px solid var(--line); padding:22px 0; }
+  .faq-item:last-child{ border-bottom:none; }
+  .faq-item summary{ font-family:'Fraunces',serif; font-weight:600; font-size:17px; cursor:pointer; list-style:none; display:flex; justify-content:space-between; color:var(--green); }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{ content:'+'; color:var(--terracotta); font-family:'Fraunces',serif; font-size:20px; }
+  .faq-item[open] summary::after{ content:'–'; }
+  .faq-item p{ font-size:14px; line-height:1.7; color:var(--sub); margin-top:12px; max-width:540px; }
+
+  .product-section{ display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:64px; padding:90px 24px; border-bottom:1px solid var(--line); max-width:1300px; margin:0 auto; scroll-margin-top:110px; }
+  .ps-visual{ order:1; display:flex; justify-content:center; }
+  .ps-text{ order:2; max-width:460px; }
+  .product-section.reverse .ps-visual{ order:2; }
+  .product-section.reverse .ps-text{ order:1; margin-left:auto; }
+  .ps-text h2{ font-size:clamp(28px,4vw,44px); color:var(--green); margin:14px 0 12px; }
+  .ps-text .italic{ font-size:16px; color:var(--sub); display:block; margin-bottom:20px; }
+  .ps-desc{ font-size:14.5px; line-height:1.75; color:var(--sub); max-width:460px; margin-bottom:28px; }
+  .ps-meta{ display:flex; gap:12px; align-items:center; margin-bottom:28px; flex-wrap:wrap; }
+  .ps-price{ font-family:'Fraunces',serif; font-weight:600; font-size:22px; color:var(--green); }
+  .ps-badge{ font-family:'Fraunces',serif; font-size:11px; border:1px solid var(--green); color:var(--green); border-radius:100px; padding:5px 14px; }
+  .info-row{ display:flex; gap:12px; font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding:12px 0; max-width:460px; }
+  .info-row b{ color:var(--ink); font-weight:600; min-width:110px; flex-shrink:0; }
+  .pkg-wrap{ transition:transform .6s var(--ease); }
+  .product-section:hover .pkg-wrap{ transform:translateY(-8px) rotate(-1deg); }
+
+  .story-band{ position:relative; overflow:hidden; background:var(--green-deep); color:var(--cream); padding:100px 24px; }
+  .story-band-inner{ max-width:var(--container); margin:0 auto; position:relative; z-index:2; text-align:center; }
+  .story-band h2{ font-size:clamp(30px,4.6vw,52px); color:var(--cream); margin-bottom:64px; }
+  .story-deco{ position:absolute; z-index:1; opacity:.9; }
+  .pillars-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:40px; text-align:center; }
+  .pillar svg{ width:52px; height:52px; margin:0 auto 18px; display:block; }
+  .pillar h3{ font-family:'Fraunces',serif; font-weight:600; font-size:18px; margin-bottom:10px; color:var(--cream); }
+  .pillar p{ font-size:13px; line-height:1.7; color:#C9D3C7; }
+
+  .timeline{ max-width:640px; margin:0 auto; }
+  .t-item{ display:flex; gap:28px; padding:28px 0; border-top:1px solid var(--line); }
+  .t-item:first-child{ border-top:none; padding-top:0; }
+  .t-year{ font-family:'Fraunces',serif; font-size:13px; color:var(--terracotta); font-weight:700; flex:0 0 60px; }
+  .t-body h3{ font-family:'Fraunces',serif; font-weight:600; font-size:17px; margin-bottom:6px; color:var(--green); }
+  .t-body p{ font-size:13.5px; line-height:1.65; color:var(--sub); max-width:440px; }
+
+  .platform-grid{ display:flex; gap:22px; }
+  .platform-card{ flex:0 0 230px; scroll-snap-align:start; border:1px solid var(--line); border-radius:16px; padding:24px 20px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; background:#fff; transition:transform .5s var(--ease), box-shadow .5s var(--ease); }
+  .platform-card:hover{ transform:translateY(-8px); box-shadow:0 24px 46px -16px rgba(31,58,46,.22); }
+  .platform-badge{ width:100%; aspect-ratio:3/2; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+  .platform-wordmark{ font-family:'Fraunces',serif; font-weight:700; font-size:18px; color:#fff; letter-spacing:.01em; }
+  .platform-link{ font-family:'Fraunces',serif; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--terracotta); font-weight:700; border-bottom:1.5px solid var(--terracotta); padding-bottom:2px; margin-top:auto; padding-top:12px; }
+
+  footer{ background:var(--green-deep); color:#9BAA9F; padding:64px 24px 28px; }
+  .footer-grid{ max-width:var(--container); margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:36px; margin-bottom:44px; }
+  .footer-logo{ font-family:'Fraunces',serif; font-weight:700; font-size:22px; color:var(--cream); margin-bottom:8px; }
+  .footer-tag{ font-family:'Fraunces',serif; font-style:italic; font-size:13.5px; color:var(--gold); }
+  .footer-col h4{ font-family:'Fraunces',serif; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--cream); margin-bottom:14px; }
+  .footer-col a{ display:block; font-size:13px; margin-bottom:10px; transition:color .3s, transform .3s; }
+  .footer-col a:hover{ color:var(--cream); transform:translateX(3px); }
+  .footer-bottom{ max-width:var(--container); margin:0 auto; border-top:1px solid rgba(243,236,221,.12); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-family:'Fraunces',serif; font-size:10px; color:#647169; }
+
+  @media(max-width:860px){
+    .nav-toggle{ display:block; }
+    .nav-links{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; background:var(--paper);
+      border-bottom:1px solid var(--line); padding:8px 24px 16px;
+    }
+    .nav-links.mobile-open{ display:flex; }
+    .nav-links a{ padding:14px 0; border-bottom:1px solid var(--line); }
+    .nav-links a:last-child{ border-bottom:none; }
+    .site-nav{ position:relative; flex-wrap:wrap; }
+    .banner-flex{ flex-direction:column; text-align:center; }
+    .banner-visual{ display:none; }
+    .product-section{ grid-template-columns:1fr; text-align:center; }
+    .ps-visual, .product-section.reverse .ps-visual{ order:1; }
+    .ps-text, .product-section.reverse .ps-text{ order:2; }
+    .ps-desc, .info-row{ margin-left:auto; margin-right:auto; }
+    .info-row{ justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <nav class="site-nav" id="nav">
+      <a href="#home" class="nav-logo">Roots</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1F3A2E" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#home" data-nav="home" data-i18n="i1">Anasayfa</a>
+        <a href="#urunler" data-nav="urunler" data-i18n="i2">Ürünler</a>
+        <a href="#hikayemiz" data-nav="hikayemiz" data-i18n="i3">Hikayemiz</a>
+      </div>
+      <div class="nav-right">
+        <a class="nav-cta" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </nav>
+  </div>
+  <div id="nav-spacer"></div>
+
+  <!-- ============ HOME ============ -->
+  <div class="page" id="home">
+
+    <div class="tab-banner">
+      <div class="tab-banner-inner">
+        <div class="banner-flex">
+          <div class="banner-copy home-hero-copy reveal">
+            
+            <h1 class="display" data-i18n="i5">Etikette rakam değil,<br data-i18n="i6">gerçek gıda var.</h1>
+            <span class="italic">Real Food, Real Strength.</span>
+            <p data-i18n="i7">Tanıyabileceğin içeriklerle hazırlanan protein barları, çikolata, kek, peynir ve içecekler.</p>
+            <span class="newsletter-label" data-i18n="i8">Roots Gelişmelerini Takip Et</span>
+            <form class="newsletter-inline" id="newsletter-form" action="https://formspree.io/f/xkjwpllg" method="POST">
+              <input type="email" name="email" placeholder="E-posta adresin" data-i18n-ph="i9" required>
+              <input type="hidden" name="_subject" value="Yeni Roots Bülten Kaydı" data-i18n-val="i10">
+              <button class="btn btn-primary" type="submit" data-i18n="i11">Katıl</button>
+            </form>
+            <p id="newsletter-msg" style="font-size:13px; color:var(--sub); margin-top:10px; display:none;"></p>
+          </div>
+          <div class="banner-visual reveal-scale">
+            <div class="hv-item" style="transform:rotate(-8deg) translate(-30px,10px); z-index:1;">
+              <div class="pkg dark" style="width:110px;min-height:150px;">
+                <p class="pkg-eyebrow">Coconut Bar</p>
+                <p class="pkg-word" style="font-size:16px;">Roots</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(4deg) translate(60px,-30px); z-index:2;">
+              <div class="pkg cream" style="width:118px;min-height:168px;">
+                <p class="pkg-eyebrow">Protein Bar</p>
+                <p class="pkg-word" style="font-size:18px;">Roots</p>
+                <p class="pkg-flavor" style="font-size:10px;">Coconut &amp; Cashew</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(-2deg) translate(10px,60px); z-index:3;">
+              <div class="pkg terracotta" style="width:100px;min-height:132px; padding-top:22px;">
+                <p class="pkg-eyebrow">Protein Cake</p>
+                <p class="pkg-word" style="font-size:14px;">Roots</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track" data-i18n="marquee">
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          
+          <h2 class="display" data-i18n="i12">Protein tozu değil, gerçek gıda.</h2>
+        </div>
+        <div class="phil-grid reveal-stagger">
+          <div class="phil-card">
+            <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="19" stroke="#1F3A2E" stroke-width="2"/><path d="M14 22l6 6 12-12" stroke="#1F3A2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 data-i18n="i13">Tanıyabileceğin İçerik</h3>
+            <p data-i18n="i14">Her üründe 6-8 içerik. Hiçbiri E-kodu ya da açıklamaya ihtiyaç duymuyor.</p>
+          </div>
+          <div class="phil-card">
+            <svg viewBox="0 0 44 44" fill="none"><path d="M22 6v32M10 14c4 0 6 4 12 4s8-4 12-4M10 30c4 0 6-4 12-4s8 4 12 4" stroke="#1F3A2E" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3 data-i18n="i15">Rafine Şeker Yok</h3>
+            <p data-i18n="i16">Tatlandırma hurma, bal ya da meyveden gelir — beyaz şeker değil.</p>
+          </div>
+          <div class="phil-card">
+            <svg viewBox="0 0 44 44" fill="none"><rect x="8" y="8" width="28" height="28" rx="4" stroke="#1F3A2E" stroke-width="2"/><path d="M16 22h12M22 16v12" stroke="#1F3A2E" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3 data-i18n="i17">Ölçülebilir Protein</h3>
+            <p data-i18n="i18">Her üründe 12-22g protein — sporcu beslenmesine gerçekten katkı sağlar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head split reveal">
+          <h2 class="display" data-i18n="i19">Altı ürün, tek felsefe.</h2>
+          <a class="btn btn-outline" href="#urunler" data-i18n="i20">Tüm Ürünler →</a>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel-track reveal-stagger">
+            <a class="feat-card" href="#urunler:p-bar">
+              <div class="pkg cream"><p class="pkg-eyebrow">Protein Bar</p><p class="pkg-word" style="font-size:18px;">Roots</p><p class="pkg-flavor" style="font-size:10px;">Coconut &amp; Cashew</p></div>
+              <div class="feat-name">Protein Bar</div>
+              <div class="feat-flavor">18G PROTEIN</div>
+              <div class="feat-price">₺179</div>
+            </a>
+            <a class="feat-card" href="#urunler:p-coconut">
+              <div class="pkg dark"><p class="pkg-eyebrow">Coconut Bar</p><p class="pkg-word" style="font-size:18px;">Roots</p><div class="pkg-twin"><div></div><div></div></div></div>
+              <div class="feat-name">Coconut Bar</div>
+              <div class="feat-flavor">17G PROTEIN</div>
+              <div class="feat-price">₺199</div>
+            </a>
+            <a class="feat-card" href="#urunler:p-cake">
+              <div class="pkg terracotta" style="padding-top:24px;"><p class="pkg-eyebrow">Protein Cake</p><p class="pkg-word" style="font-size:16px;">Roots</p><p class="pkg-flavor" style="font-size:10px;">Banana &amp; Cocoa</p></div>
+              <div class="feat-name" data-i18n="i21">Protein Kek</div>
+              <div class="feat-flavor">15G PROTEIN</div>
+              <div class="feat-price">₺159</div>
+            </a>
+            <a class="feat-card" href="#urunler:p-choc">
+              <div class="pkg cacao"><p class="pkg-eyebrow">Dark Chocolate</p><p class="pkg-word" style="font-size:16px; color:#D8B84A;">Roots</p><div class="pkg-seg" style="margin-top:8px;"><div></div><div></div><div></div><div></div></div></div>
+              <div class="feat-name" data-i18n="i22">Sağlıklı Çikolata</div>
+              <div class="feat-flavor">12G PROTEIN</div>
+              <div class="feat-price">₺299</div>
+            </a>
+            <a class="feat-card" href="#urunler:p-cheese">
+              <div class="pkg wheel"><div><p class="pkg-eyebrow">Cheese</p><p class="pkg-word" style="font-size:15px;">Roots</p></div></div>
+              <div class="feat-name" data-i18n="i23">Peynir</div>
+              <div class="feat-flavor">20G PROTEIN</div>
+              <div class="feat-price">₺239</div>
+            </a>
+            <a class="feat-card" href="#urunler:p-drink">
+              <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:16px;">
+                <div class="pkg-cap"></div><div class="pkg-neck"></div>
+                <div class="pkg bottle" style="width:90px;min-height:140px;margin-bottom:0;"><p class="pkg-eyebrow">Quark Drink</p><p class="pkg-word" style="font-size:14px;">Roots</p></div>
+              </div>
+              <div class="feat-name" data-i18n="i24">Quark İçecek</div>
+              <div class="feat-flavor">22G PROTEIN</div>
+              <div class="feat-price">₺209</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head reveal">
+          
+          <h2 class="display" data-i18n="i25">Merak Ettiklerin</h2>
+        </div>
+        <details class="faq-item" open><summary data-i18n="i26">Ürünler nerede satılıyor?</summary><p data-i18n="i27">Seçili organik marketlerde ve online mağazamızda satışa sunuyoruz.</p></details>
+        <details class="faq-item"><summary data-i18n="i28">Ürünlerde rafine şeker var mı?</summary><p data-i18n="i29">Hayır. Tüm tatlandırma hurma, bal ya da meyveden geliyor.</p></details>
+        <details class="faq-item"><summary data-i18n="i30">Vegan seçenek var mı?</summary><p data-i18n="i31">Protein Bar, Coconut Bar ve Sağlıklı Çikolata vegan.</p></details>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ ÜRÜNLER ============ -->
+  <div class="page" id="urunler">
+
+    <div class="tab-banner">
+      <div class="tab-banner-inner">
+        <div class="banner-flex">
+          <div class="banner-copy home-hero-copy reveal">
+            
+            <h1 class="display" style="font-size:clamp(30px,4.4vw,48px);" data-i18n="i19">Altı ürün, tek felsefe.</h1>
+            <span class="italic">Real Food, Real Strength.</span>
+            <p data-i18n="i7">Tanıyabileceğin içeriklerle hazırlanan protein barları, çikolata, kek, peynir ve içecekler.</p>
+          </div>
+          <div class="banner-visual reveal-scale">
+            <div class="hv-item" style="transform:rotate(-8deg) translate(-30px,10px); z-index:1;">
+              <div class="pkg cacao" style="width:100px;min-height:130px;">
+                <p class="pkg-eyebrow">Dark Chocolate</p>
+                <p class="pkg-word" style="font-size:15px; color:#D8B84A;">Roots</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(4deg) translate(60px,-30px); z-index:2;">
+              <div class="pkg wheel" style="width:120px;height:120px;">
+                <div><p class="pkg-eyebrow" style="font-size:8px;">Cheese</p><p class="pkg-word" style="font-size:16px;">Roots</p></div>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(-3deg) translate(0px,70px); z-index:3;">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="pkg-cap" style="width:26px;height:11px;"></div><div class="pkg-neck" style="width:18px;height:8px;"></div>
+                <div class="pkg bottle" style="width:88px;min-height:110px;margin-bottom:0;">
+                  <p class="pkg-eyebrow" style="font-size:8px;">Quark Drink</p>
+                  <p class="pkg-word" style="font-size:13px;">Roots</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track" data-i18n="marquee">
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+      </div>
+    </div>
+
+    <div class="product-section" id="p-bar">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap"><div class="pkg cream" style="width:260px; min-height:340px;">
+          <p class="pkg-eyebrow">Organic Protein Bar</p>
+          <p class="pkg-word" style="font-size:36px;">Roots</p>
+          <div class="pkg-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="10" y="24" width="44" height="16" rx="6" fill="#1F3A2E"/><circle cx="18" cy="32" r="2.5" fill="#F3ECDD"/><circle cx="30" cy="30" r="2" fill="#F3ECDD"/><circle cx="42" cy="34" r="2.3" fill="#F3ECDD"/></svg></div>
+          <p class="pkg-flavor">Coconut &amp; Cashew</p>
+        </div></div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i32">Yüksek oranda protein.</h2>
+        <span class="italic" data-i18n="i33">Hindistancevizi &amp; Kaju</span>
+        <p class="ps-desc" data-i18n="i34">Fırınlanmadan, soğuk pres yöntemiyle hazırlanan günlük protein barı. 45g'lık her barda sadece 6 içerik var.</p>
+        <div class="ps-meta"><span class="ps-price">₺179</span><span class="ps-badge">18g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i36"> Hurma, badem, kaju, hindistancevizi, bezelye proteini izolatı, vanilya, Himalaya tuzu</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i38"> Vegan · Glutensiz · Rafine Şekersiz</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+    <div class="product-section reverse" id="p-coconut">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap"><div class="pkg dark" style="width:260px; min-height:340px;">
+          <p class="pkg-eyebrow">Coconut Protein Bar</p>
+          <p class="pkg-word" style="font-size:36px;">Roots</p>
+          <div class="pkg-twin"><div></div><div></div></div>
+          <p class="pkg-flavor">Coconut in Dark Chocolate</p>
+        </div></div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i39">Favori barının gerçek hali.</h2>
+        <span class="italic" data-i18n="i40">Bitter Çikolata Kaplı</span>
+        <p class="ps-desc" data-i18n="i41">Klasik hindistancevizi-çikolata barının gerçek proteinle yeniden kurulmuş hali. Çift bar formatında, 50g.</p>
+        <div class="ps-meta"><span class="ps-price">₺199</span><span class="ps-badge">17g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i42"> Hindistancevizi, bitter çikolata, bezelye proteini izolatı, vanilya, deniz tuzu</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i43"> Vegan · Glutensiz</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+    <div class="product-section" id="p-cake">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap"><div class="pkg terracotta" style="width:260px; min-height:340px;">
+          <p class="pkg-eyebrow">Protein Cake</p>
+          <p class="pkg-word" style="font-size:32px;">Roots</p>
+          <div class="pkg-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="14" y="30" width="36" height="20" rx="4" fill="#F3ECDD" opacity="0.15"/><path d="M14 30 C 20 22, 44 22, 50 30" stroke="#F3ECDD" stroke-width="2"/><rect x="14" y="30" width="36" height="20" rx="4" stroke="#F3ECDD" stroke-width="2"/><rect x="30" y="10" width="4" height="10" fill="#F3ECDD"/><circle cx="32" cy="8" r="3" fill="#C9A227"/></svg></div>
+          <p class="pkg-flavor">Banana &amp; Cocoa</p>
+        </div></div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i44">Kek gibi tatlı, protein gibi güçlü.</h2>
+        <span class="italic" data-i18n="i45">Muz &amp; Kakao</span>
+        <p class="ps-desc" data-i18n="i46">Yumuşak dokulu, tek porsiyonluk fırın keki. Yulaf unu ve sade yoğurt bazlı hamur, gerçek muz ve kakao ile, 60g.</p>
+        <div class="ps-meta"><span class="ps-price">₺159</span><span class="ps-badge">15g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i47"> Yulaf unu, muz, yumurta, sade yoğurt, whey protein izolatı, kakao</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i48"> Rafine Şekersiz · Fırında Pişmiş</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+    <div class="product-section reverse" id="p-choc">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap"><div class="pkg cacao" style="width:270px; min-height:310px;">
+          <p class="pkg-eyebrow">Healthy Dark Chocolate</p>
+          <p class="pkg-word" style="font-size:32px; color:#D8B84A;">Roots</p>
+          <div class="pkg-seg"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          <p class="pkg-flavor" data-i18n="i49">%72 Bitter Kakao</p>
+        </div></div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i50">%72 kakao. Sıfır rafine şeker.</h2>
+        <span class="italic" data-i18n="i51">Tek Kaynak Kakao</span>
+        <p class="ps-desc" data-i18n="i52">Tek kaynak kakao çekirdeğinden, sadece hurma ile tatlandırılmış bitter çikolata. Segmentli tablet formunda, 70g.</p>
+        <div class="ps-meta"><span class="ps-price">₺299</span><span class="ps-badge">12g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i53"> Kakao kitlesi (%72), kakao yağı, hindistancevizi şekeri, vanilya</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i54"> Vegan · Tek Kaynak Kakao</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+    <div class="product-section" id="p-cheese">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap"><div class="pkg wheel" style="width:280px; height:280px;">
+          <div>
+            <p class="pkg-eyebrow">High-Protein</p>
+            <p class="pkg-word" style="font-size:28px;">Roots</p>
+            <p class="pkg-flavor">Cheese</p>
+          </div>
+        </div></div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i55">20g protein, bir kaşıkta.</h2>
+        <span class="italic" data-i18n="i56">Doğal Kültürlerle Fermente</span>
+        <p class="ps-desc" data-i18n="i57">Taze, az yağlı ve yüksek proteinli fermente peynir. Kase formunda, kaşıkla tüketilebilir, 150g.</p>
+        <div class="ps-meta"><span class="ps-price">₺239</span><span class="ps-badge">20g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i58"> Pastörize süt, canlı kültürler, whey protein konsantresi, deniz tuzu</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i59"> Glutensiz · Düşük Yağ</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+    <div class="product-section reverse" id="p-drink" style="border-bottom:none;">
+      <div class="ps-visual reveal-scale">
+        <div class="pkg-wrap" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="pkg-cap"></div><div class="pkg-neck"></div>
+          <div class="pkg bottle" style="width:230px; min-height:340px;">
+            <p class="pkg-eyebrow">Quark Protein Drink</p>
+            <p class="pkg-word" style="font-size:30px;">Roots</p>
+            <div class="pkg-icon"><svg viewBox="0 0 64 64" fill="none"><circle cx="20" cy="30" r="7" fill="#F3ECDD"/><circle cx="34" cy="22" r="7" fill="#F3ECDD"/><circle cx="46" cy="32" r="7" fill="#F3ECDD"/><circle cx="30" cy="40" r="7" fill="#F3ECDD"/></svg></div>
+            <p class="pkg-flavor">Blueberry Quark</p>
+          </div>
+        </div>
+      </div>
+      <div class="ps-text reveal">
+        
+        <h2 class="display" data-i18n="i60">Kahvaltını şişeye sığdırdık.</h2>
+        <span class="italic" data-i18n="i61">Yaban Mersinli (Blueberry)</span>
+        <p class="ps-desc" data-i18n="i62">İçilebilir kuark bazlı protein içeceği. Kahvaltı öğününün yerine geçebilecek doygunlukta, 250ml.</p>
+        <div class="ps-meta"><span class="ps-price">₺209</span><span class="ps-badge">22g Protein</span></div>
+        <div class="info-row"><b data-i18n="i35">İçindekiler</b><span data-i18n="i63"> Kuark, yaban mersini, sade yoğurt, whey protein izolatı, chia tohumu</span></div>
+        <div class="info-row" style="margin-bottom:28px;"><b data-i18n="i37">Özellikler</b><span data-i18n="i64"> Kahvaltı Alternatifi · Glutensiz</span></div>
+        <a class="btn btn-primary" href="#satin-al" data-i18n="i4">Satın Al</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ HİKAYEMİZ ============ -->
+  <div class="page" id="hikayemiz">
+
+    <div class="tab-banner">
+      <div class="tab-banner-inner">
+        <div class="banner-flex">
+          <div class="banner-copy home-hero-copy reveal">
+            
+            <h1 class="display" style="font-size:clamp(30px,4.4vw,48px);" data-i18n="i65">Buraya Nasıl Geldik</h1>
+            <span class="italic">Real Food, Real Strength.</span>
+            <p data-i18n="i66">2024'te bir mutfakta başladık; bugün gerçek gıdayı tanıyabileceğin içeriklerle herkes için erişilebilir kılmaya çalışıyoruz.</p>
+          </div>
+          <div class="banner-visual reveal-scale">
+            <div class="hv-item" style="transform:rotate(-8deg) translate(-30px,10px); z-index:1;">
+              <div class="pkg dark" style="width:110px;min-height:150px;">
+                <p class="pkg-eyebrow">Coconut Bar</p>
+                <p class="pkg-word" style="font-size:16px;">Roots</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(4deg) translate(60px,-30px); z-index:2;">
+              <div class="pkg cream" style="width:118px;min-height:168px;">
+                <p class="pkg-eyebrow">Protein Bar</p>
+                <p class="pkg-word" style="font-size:18px;">Roots</p>
+                <p class="pkg-flavor" style="font-size:10px;">Coconut &amp; Cashew</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(-2deg) translate(10px,60px); z-index:3;">
+              <div class="pkg terracotta" style="width:100px;min-height:132px; padding-top:22px;">
+                <p class="pkg-eyebrow">Protein Cake</p>
+                <p class="pkg-word" style="font-size:14px;">Roots</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track" data-i18n="marquee">
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+      </div>
+    </div>
+
+    <section style="border-bottom:none;">
+      <div class="container">
+        <div class="timeline reveal-stagger">
+          <div class="t-item"><div class="t-year mono">2024</div><div class="t-body"><h3 data-i18n="i67">Mutfakta Başladı</h3><p data-i18n="i68">İlk Roots Protein Bar tarifi kendi mutfağımızda denendi. Amaç basitti: etiketi yüksek sesle okunabilen bir protein barı.</p></div></div>
+          <div class="t-item"><div class="t-year mono">2025</div><div class="t-body"><h3 data-i18n="i69">İlk Üretim Hattı</h3><p data-i18n="i70">İstanbul'da küçük ölçekli bir organik üretim tesisiyle çalışmaya başladık. Coconut Bar ve Protein Kek ürün ailesine katıldı.</p></div></div>
+          <div class="t-item"><div class="t-year mono">2026</div><div class="t-body"><h3 data-i18n="i71">Altı Ürünlük Bir Aile</h3><p data-i18n="i72">Sağlıklı Çikolata, Peynir ve Quark İçecek ile ürün ailemiz altıya çıktı — kahvaltıdan atıştırmalığa tüm gün Roots.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="story-band">
+      <svg class="story-deco" style="top:-30px; left:-20px; width:220px;" viewBox="0 0 220 220" fill="none">
+        <ellipse cx="40" cy="40" rx="14" ry="14" fill="#C9D3C7" opacity="0.5"/>
+        <path d="M90 20 C 70 40, 70 70, 90 90 C 110 70, 110 40, 90 20 Z" fill="#C9A227" opacity="0.6"/>
+        <path d="M60 100 C 40 120, 40 150, 60 170 C 80 150, 80 120, 60 100 Z" fill="#4B5F4E" opacity="0.7"/>
+        <circle cx="150" cy="60" r="7" fill="#B8552E" opacity="0.6"/>
+        <circle cx="170" cy="90" r="4" fill="#F3ECDD" opacity="0.5"/>
+      </svg>
+      <svg class="story-deco" style="top:-10px; right:-30px; width:240px;" viewBox="0 0 240 240" fill="none">
+        <path d="M120 30 C 150 50, 160 90, 130 120 C 100 90, 110 50, 120 30 Z" fill="#F3ECDD" opacity="0.35"/>
+        <path d="M180 100 C 200 115, 205 140, 185 160 C 165 140, 170 115, 180 100 Z" fill="#B8552E" opacity="0.55"/>
+        <circle cx="60" cy="70" r="10" fill="#C9A227" opacity="0.5"/>
+        <circle cx="40" cy="120" r="6" fill="#C9D3C7" opacity="0.5"/>
+      </svg>
+      <div class="story-band-inner">
+        <h2 class="display reveal" data-i18n="i73">Gerçek Gıdanın<br data-i18n="i74">Geleceğini Kuruyoruz</h2>
+        <div class="pillars-grid reveal-stagger">
+          <div class="pillar">
+            <svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="22" stroke="#F3ECDD" stroke-width="2"/><path d="M18 28l7 7 14-14" stroke="#F3ECDD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 data-i18n="i75">Şeffaflık</h3>
+            <p data-i18n="i76">Her içerik, her rakam ambalajda. Pazarlama dili değil, gerçek bilgi.</p>
+          </div>
+          <div class="pillar">
+            <svg viewBox="0 0 56 56" fill="none"><path d="M28 8c-9 0-16 7-16 16 0 12 16 24 16 24s16-12 16-24c0-9-7-16-16-16Z" stroke="#F3ECDD" stroke-width="2"/><circle cx="28" cy="24" r="5" stroke="#F3ECDD" stroke-width="2"/></svg>
+            <h3 data-i18n="i77">Yerel Üretim</h3>
+            <p data-i18n="i78">Türkiye'deki organik tedarikçilerle çalışıyoruz; hurmadan hindistancevizine izlenebilir kaynak.</p>
+          </div>
+          <div class="pillar">
+            <svg viewBox="0 0 56 56" fill="none"><path d="M28 10c11 0 18 8 18 18s-7 18-18 18-18-8-18-18" stroke="#F3ECDD" stroke-width="2" stroke-linecap="round"/><path d="M40 14l4 6-7 1" stroke="#F3ECDD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 data-i18n="i79">Sürdürülebilirlik</h3>
+            <p data-i18n="i80">Ambalajdan tedarik zincirine, çevresel etkiyi azaltmayı sürekli gözden geçiriyoruz.</p>
+          </div>
+          <div class="pillar">
+            <svg viewBox="0 0 56 56" fill="none"><path d="M28 44S10 34 10 21c0-6 5-11 11-11 3 0 6 1.5 7 4 1-2.5 4-4 7-4 6 0 11 5 11 11 0 13-18 23-18 23Z" stroke="#F3ECDD" stroke-width="2"/><path d="M24 24h8M28 20v8" stroke="#F3ECDD" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3 data-i18n="i81">Toplum Sağlığı</h3>
+            <p data-i18n="i82">Sporcu beslenmesinden aile sofralarına, herkes için erişilebilir gerçek protein.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head reveal" style="text-align:center; max-width:560px; margin-left:auto; margin-right:auto;">
+          
+          <h2 class="display" data-i18n="i83">Bize Ulaş</h2>
+          <p style="font-size:15px; line-height:1.7; color:var(--sub); margin-top:16px;" data-i18n="i84">Sorularınız, işbirliği teklifleriniz ya da toptan satış talepleriniz için buradayız.</p>
+        </div>
+        <div class="reveal-stagger" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+          <a class="btn btn-primary" href="mailto:info@eatroots.co">info@eatroots.co</a>
+          <a class="btn btn-outline" href="https://www.instagram.com/eatroots.co/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="btn btn-outline" href="https://www.instagram.com/eatroots.co/" target="_blank" rel="noopener noreferrer">TikTok</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ SATIN AL ============ -->
+  <div class="page" id="satin-al">
+
+    <div class="tab-banner">
+      <div class="tab-banner-inner">
+        <div class="banner-flex">
+          <div class="banner-copy home-hero-copy reveal">
+            <h1 class="display" style="font-size:clamp(30px,4.4vw,48px);" data-i18n="i85">Roots'u Nereden<br data-i18n="i86">Alabilirsin?</h1>
+            <span class="italic">Real Food, Real Strength.</span>
+            <p data-i18n="i7">Tanıyabileceğin içeriklerle hazırlanan protein barları, çikolata, kek, peynir ve içecekler.</p>
+          </div>
+          <div class="banner-visual reveal-scale">
+            <div class="hv-item" style="transform:rotate(-8deg) translate(-30px,10px); z-index:1;">
+              <div class="pkg cream" style="width:118px;min-height:168px;">
+                <p class="pkg-eyebrow">Protein Bar</p>
+                <p class="pkg-word" style="font-size:18px;">Roots</p>
+                <p class="pkg-flavor" style="font-size:10px;">Coconut &amp; Cashew</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(4deg) translate(60px,-30px); z-index:2;">
+              <div class="pkg cacao" style="width:110px;min-height:140px;">
+                <p class="pkg-eyebrow">Dark Chocolate</p>
+                <p class="pkg-word" style="font-size:16px; color:#D8B84A;">Roots</p>
+              </div>
+            </div>
+            <div class="hv-item" style="transform:rotate(-3deg) translate(0px,70px); z-index:3;">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="pkg-cap" style="width:26px;height:11px;"></div><div class="pkg-neck" style="width:18px;height:8px;"></div>
+                <div class="pkg bottle" style="width:88px;min-height:110px;margin-bottom:0;">
+                  <p class="pkg-eyebrow" style="font-size:8px;">Quark Drink</p>
+                  <p class="pkg-word" style="font-size:13px;">Roots</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track" data-i18n="marquee">
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+        <span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>
+      </div>
+    </div>
+
+    <section style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head reveal">
+          <p style="font-family:'Fraunces',serif; font-size:16px; color:var(--sub);" data-i18n="i87">Çok yakında bu online marketlerde listelenecek.</p>
+        </div>
+        <div class="carousel-wrap">
+          <div class="platform-grid reveal-stagger">
+
+            <a class="platform-card" href="https://getir.com" target="_blank" rel="noopener noreferrer">
+              <div class="platform-badge" style="background:#5D3EBC;">
+                <span class="platform-wordmark">Getir</span>
+              </div>
+              <span class="platform-link">Git →</span>
+            </a>
+
+            <a class="platform-card" href="https://www.ubereats.com/tr" target="_blank" rel="noopener noreferrer">
+              <div class="platform-badge" style="background:#06C167;">
+                <span class="platform-wordmark" style="color:#0F1E17;">Uber Eats</span>
+              </div>
+              <span class="platform-link">Git →</span>
+            </a>
+
+            <a class="platform-card" href="https://www.yemeksepeti.com" target="_blank" rel="noopener noreferrer">
+              <div class="platform-badge" style="background:#FA0050;">
+                <span class="platform-wordmark">Yemeksepeti</span>
+              </div>
+              <span class="platform-link">Git →</span>
+            </a>
+
+            <a class="platform-card" href="https://www.migros.com.tr" target="_blank" rel="noopener noreferrer">
+              <div class="platform-badge" style="background:#EE7203;">
+                <span class="platform-wordmark" data-i18n="i88">Migros Sanal Market</span>
+              </div>
+              <span class="platform-link">Git →</span>
+            </a>
+
+            <a class="platform-card" href="https://www.macrocenter.com.tr" target="_blank" rel="noopener noreferrer">
+              <div class="platform-badge" style="background:#1B1B1B;">
+                <span class="platform-wordmark" style="color:#C9A227;">Macro Online</span>
+              </div>
+              <span class="platform-link">Git →</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Roots</div>
+        <div class="footer-tag">Real Food, Real Strength.</div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="i2">Ürünler</h4>
+        <a href="#urunler:p-bar">Protein Bar</a>
+        <a href="#urunler:p-coconut">Coconut Bar</a>
+        <a href="#urunler:p-cake" data-i18n="i21">Protein Kek</a>
+        <a href="#urunler:p-choc" data-i18n="i22">Sağlıklı Çikolata</a>
+        <a href="#urunler:p-cheese" data-i18n="i23">Peynir</a>
+        <a href="#urunler:p-drink" data-i18n="i24">Quark İçecek</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="i89">Şirket</h4>
+        <a href="#hikayemiz" data-i18n="i3">Hikayemiz</a>
+        <a href="#satin-al" data-i18n="i4">Satın Al</a>
+        <a href="#" data-i18n="i90">Kariyer</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="i91">İletişim</h4>
+        <a href="mailto:info@eatroots.co">info@eatroots.co</a>
+        <a href="https://www.instagram.com/eatroots.co/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.instagram.com/eatroots.co/" target="_blank" rel="noopener noreferrer">TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="i92">© 2026 ROOTS ORGANİK GIDA A.Ş.</span>
+      <span data-i18n="i93">İSTANBUL, TÜRKİYE</span>
+    </div>
+  </footer>
+
+<script>
+  const pageIds = ['home','urunler','hikayemiz','satin-al'];
+
+  function showPage(id, sub){
+    if(!pageIds.includes(id)) id = 'home';
+    pageIds.forEach(p=>{ document.getElementById(p).classList.toggle('active', p===id); });
+    document.querySelectorAll('.nav-links a').forEach(a=>{
+      a.classList.toggle('active', a.dataset.nav === id);
+    });
+    if(sub){
+      setTimeout(()=>{
+        const target = document.getElementById(sub);
+        if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }, 60);
+    } else {
+      window.scrollTo(0,0);
+    }
+    triggerReveals();
+  }
+
+  function routeFromHash(){
+    const raw = location.hash.slice(1);
+    const [id, sub] = raw.split(':');
+    showPage(id, sub);
+  }
+
+  window.addEventListener('hashchange', routeFromHash);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  function triggerReveals(){
+    document.querySelectorAll('.page.active .reveal, .page.active .reveal-scale, .page.active .reveal-stagger').forEach(el=>{
+      if(!el.classList.contains('in')) io.observe(el);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', routeFromHash);
+
+  function sizeNavSpacer(){
+    const navWrap = document.querySelector('.nav-wrap');
+    const spacer = document.getElementById('nav-spacer');
+    if(navWrap && spacer){ spacer.style.height = navWrap.offsetHeight + 'px'; }
+  }
+  window.addEventListener('DOMContentLoaded', sizeNavSpacer);
+  window.addEventListener('resize', sizeNavSpacer);
+
+  const newsletterForm = document.getElementById('newsletter-form');
+  if(newsletterForm){
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('newsletter-msg');
+      const btn = newsletterForm.querySelector('button[type="submit"]');
+      const data = new FormData(newsletterForm);
+      btn.disabled = true;
+      const t = (window.currentLang === 'en')
+        ? { ok: 'Thanks! Your email has been received.', fail: 'Something went wrong, mind trying again?', err: 'Connection error, mind trying again?' }
+        : { ok: 'Teşekkürler! E-postan alındı.', fail: 'Bir şeyler ters gitti, tekrar dener misin?', err: 'Bağlantı hatası, tekrar dener misin?' };
+      try{
+        const res = await fetch(newsletterForm.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if(res.ok){
+          newsletterForm.reset();
+          msg.textContent = t.ok;
+          msg.style.display = 'block';
+          msg.style.color = 'var(--green)';
+        } else {
+          msg.textContent = t.fail;
+          msg.style.display = 'block';
+          msg.style.color = 'var(--terracotta)';
+        }
+      } catch(err){
+        msg.textContent = t.err;
+        msg.style.display = 'block';
+        msg.style.color = 'var(--terracotta)';
+      }
+      btn.disabled = false;
+    });
+  }
+
+  /* ---------- MOBILE HAMBURGER MENU ---------- */
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinksEl = document.getElementById('nav-links');
+  if(navToggle && navLinksEl){
+    navToggle.addEventListener('click', () => {
+      navLinksEl.classList.toggle('mobile-open');
+    });
+    navLinksEl.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinksEl.classList.remove('mobile-open'));
+    });
+  }
+
+  /* ---------- AUTO LANGUAGE (TR default, EN for non-TR visitors) ---------- */
+  const I18N = {"i1": {"tr": "Anasayfa", "en": "Home"}, "i2": {"tr": "Ürünler", "en": "Products"}, "i3": {"tr": "Hikayemiz", "en": "Our Story"}, "i4": {"tr": "Satın Al", "en": "Buy Now"}, "i5": {"tr": "Etikette rakam değil,", "en": "Not a number on a label —"}, "i6": {"tr": "gerçek gıda var.", "en": "real food instead."}, "i7": {"tr": "Tanıyabileceğin içeriklerle hazırlanan protein barları, çikolata, kek, peynir ve içecekler.", "en": "Protein bars, chocolate, cake, cheese and drinks made with ingredients you can actually recognize."}, "i8": {"tr": "Roots Gelişmelerini Takip Et", "en": "Follow Roots Updates"}, "i9": {"tr": "E-posta adresin", "en": "Your email address"}, "i10": {"tr": "Yeni Roots Bülten Kaydı", "en": "New Roots Newsletter Signup"}, "i11": {"tr": "Katıl", "en": "Join"}, "i12": {"tr": "Protein tozu değil, gerçek gıda.", "en": "Not protein powder. Real food."}, "i13": {"tr": "Tanıyabileceğin İçerik", "en": "Ingredients You Can Read"}, "i14": {"tr": "Her üründe 6-8 içerik. Hiçbiri E-kodu ya da açıklamaya ihtiyaç duymuyor.", "en": "6-8 ingredients per product. None of them need an E-number or a footnote."}, "i15": {"tr": "Rafine Şeker Yok", "en": "No Refined Sugar"}, "i16": {"tr": "Tatlandırma hurma, bal ya da meyveden gelir — beyaz şeker değil.", "en": "Sweetness comes from dates, honey, or fruit — never white sugar."}, "i17": {"tr": "Ölçülebilir Protein", "en": "Protein That Counts"}, "i18": {"tr": "Her üründe 12-22g protein — sporcu beslenmesine gerçekten katkı sağlar.", "en": "12-22g of protein per product — enough to actually support an active lifestyle."}, "i19": {"tr": "Altı ürün, tek felsefe.", "en": "Six products, one philosophy."}, "i20": {"tr": "Tüm Ürünler →", "en": "All Products →"}, "i21": {"tr": "Protein Kek", "en": "Protein Cake"}, "i22": {"tr": "Sağlıklı Çikolata", "en": "Dark Chocolate"}, "i23": {"tr": "Peynir", "en": "Cheese"}, "i24": {"tr": "Quark İçecek", "en": "Quark Drink"}, "i25": {"tr": "Merak Ettiklerin", "en": "Common Questions"}, "i26": {"tr": "Ürünler nerede satılıyor?", "en": "Where can I buy these?"}, "i27": {"tr": "Seçili organik marketlerde ve online mağazamızda satışa sunuyoruz.", "en": "We sell through select organic grocers and our online store."}, "i28": {"tr": "Ürünlerde rafine şeker var mı?", "en": "Is there refined sugar in the products?"}, "i29": {"tr": "Hayır. Tüm tatlandırma hurma, bal ya da meyveden geliyor.", "en": "No. All sweetness comes from dates, honey, or fruit."}, "i30": {"tr": "Vegan seçenek var mı?", "en": "Are there vegan options?"}, "i31": {"tr": "Protein Bar, Coconut Bar ve Sağlıklı Çikolata vegan.", "en": "The Protein Bar, Coconut Bar, and Dark Chocolate are all vegan."}, "i32": {"tr": "Yüksek oranda protein.", "en": "High in protein."}, "i33": {"tr": "Hindistancevizi &amp; Kaju", "en": "Coconut &amp; Cashew"}, "i34": {"tr": "Fırınlanmadan, soğuk pres yöntemiyle hazırlanan günlük protein barı. 45g'lık her barda sadece 6 içerik var.", "en": "A daily protein bar made cold-pressed, without baking. Each 45g bar has just 6 ingredients."}, "i35": {"tr": "İçindekiler", "en": "Ingredients"}, "i36": {"tr": " Hurma, badem, kaju, hindistancevizi, bezelye proteini izolatı, vanilya, Himalaya tuzu", "en": " Dates, almonds, cashews, coconut, pea protein isolate, vanilla, Himalayan salt"}, "i37": {"tr": "Özellikler", "en": "Features"}, "i38": {"tr": " Vegan · Glutensiz · Rafine Şekersiz", "en": " Vegan · Gluten-Free · No Refined Sugar"}, "i39": {"tr": "Favori barının gerçek hali.", "en": "Your favorite bar,<br>rebuilt for real."}, "i40": {"tr": "Bitter Çikolata Kaplı", "en": "Dark Chocolate Coated"}, "i41": {"tr": "Klasik hindistancevizi-çikolata barının gerçek proteinle yeniden kurulmuş hali. Çift bar formatında, 50g.", "en": "The classic coconut-chocolate bar, rebuilt with real protein. Twin-bar format, 50g."}, "i42": {"tr": " Hindistancevizi, bitter çikolata, bezelye proteini izolatı, vanilya, deniz tuzu", "en": " Coconut, dark chocolate, pea protein isolate, vanilla, sea salt"}, "i43": {"tr": " Vegan · Glutensiz", "en": " Vegan · Gluten-Free"}, "i44": {"tr": "Kek gibi tatlı, protein gibi güçlü.", "en": "Sweet like cake,<br>strong like protein."}, "i45": {"tr": "Muz &amp; Kakao", "en": "Banana &amp; Cocoa"}, "i46": {"tr": "Yumuşak dokulu, tek porsiyonluk fırın keki. Yulaf unu ve sade yoğurt bazlı hamur, gerçek muz ve kakao ile, 60g.", "en": "A soft, single-serve baked cake. Oat flour and plain yogurt batter with real banana and cocoa, 60g."}, "i47": {"tr": " Yulaf unu, muz, yumurta, sade yoğurt, whey protein izolatı, kakao", "en": " Oat flour, banana, eggs, plain yogurt, whey protein isolate, cocoa"}, "i48": {"tr": " Rafine Şekersiz · Fırında Pişmiş", "en": " No Refined Sugar · Freshly Baked"}, "i49": {"tr": "%72 Bitter Kakao", "en": "72% Dark Cacao"}, "i50": {"tr": "%72 kakao. Sıfır rafine şeker.", "en": "72% cacao.<br>Zero refined sugar."}, "i51": {"tr": "Tek Kaynak Kakao", "en": "Single-Origin Cacao"}, "i52": {"tr": "Tek kaynak kakao çekirdeğinden, sadece hurma ile tatlandırılmış bitter çikolata. Segmentli tablet formunda, 70g.", "en": "Dark chocolate from single-origin cacao beans, sweetened with dates only. Segmented tablet format, 70g."}, "i53": {"tr": " Kakao kitlesi (%72), kakao yağı, hindistancevizi şekeri, vanilya", "en": " Cacao mass (72%), cacao butter, coconut sugar, vanilla"}, "i54": {"tr": " Vegan · Tek Kaynak Kakao", "en": " Vegan · Single-Origin Cacao"}, "i55": {"tr": "20g protein, bir kaşıkta.", "en": "20g protein,<br>in a single spoonful."}, "i56": {"tr": "Doğal Kültürlerle Fermente", "en": "Naturally Cultured"}, "i57": {"tr": "Taze, az yağlı ve yüksek proteinli fermente peynir. Kase formunda, kaşıkla tüketilebilir, 150g.", "en": "Fresh, low-fat, high-protein cultured cheese. Comes in a cup, eaten with a spoon, 150g."}, "i58": {"tr": " Pastörize süt, canlı kültürler, whey protein konsantresi, deniz tuzu", "en": " Pasteurized milk, live cultures, whey protein concentrate, sea salt"}, "i59": {"tr": " Glutensiz · Düşük Yağ", "en": " Gluten-Free · Low Fat"}, "i60": {"tr": "Kahvaltını şişeye sığdırdık.", "en": "Breakfast,<br>in a bottle."}, "i61": {"tr": "Yaban Mersinli (Blueberry)", "en": "Blueberry Quark"}, "i62": {"tr": "İçilebilir kuark bazlı protein içeceği. Kahvaltı öğününün yerine geçebilecek doygunlukta, 250ml.", "en": "A drinkable quark-based protein drink. Filling enough to replace breakfast, 250ml."}, "i63": {"tr": " Kuark, yaban mersini, sade yoğurt, whey protein izolatı, chia tohumu", "en": " Quark, blueberries, plain yogurt, whey protein isolate, chia seeds"}, "i64": {"tr": " Kahvaltı Alternatifi · Glutensiz", "en": " Breakfast Alternative · Gluten-Free"}, "i65": {"tr": "Buraya Nasıl Geldik", "en": "How We Got Here"}, "i66": {"tr": "2024'te bir mutfakta başladık; bugün gerçek gıdayı tanıyabileceğin içeriklerle herkes için erişilebilir kılmaya çalışıyoruz.", "en": "We started in a kitchen in 2024; today we're working to make real food, made with ingredients you can recognize, accessible to everyone."}, "i67": {"tr": "Mutfakta Başladı", "en": "It Started in a Kitchen"}, "i68": {"tr": "İlk Roots Protein Bar tarifi kendi mutfağımızda denendi. Amaç basitti: etiketi yüksek sesle okunabilen bir protein barı.", "en": "The first Roots Protein Bar recipe was tested in our own kitchen. The goal was simple: a protein bar whose label you could read out loud."}, "i69": {"tr": "İlk Üretim Hattı", "en": "First Production Line"}, "i70": {"tr": "İstanbul'da küçük ölçekli bir organik üretim tesisiyle çalışmaya başladık. Coconut Bar ve Protein Kek ürün ailesine katıldı.", "en": "We started working with a small-scale organic production facility in Istanbul. The Coconut Bar and Protein Cake joined the family."}, "i71": {"tr": "Altı Ürünlük Bir Aile", "en": "A Family of Six"}, "i72": {"tr": "Sağlıklı Çikolata, Peynir ve Quark İçecek ile ürün ailemiz altıya çıktı — kahvaltıdan atıştırmalığa tüm gün Roots.", "en": "With Dark Chocolate, Cheese, and the Quark Drink, our product family grew to six — Roots from breakfast through snack time."}, "i73": {"tr": "Gerçek Gıdanın", "en": "Building the Future"}, "i74": {"tr": "Geleceğini Kuruyoruz", "en": "of Real Food"}, "i75": {"tr": "Şeffaflık", "en": "Transparency"}, "i76": {"tr": "Her içerik, her rakam ambalajda. Pazarlama dili değil, gerçek bilgi.", "en": "Every ingredient, every number is on the pack. Real information, not marketing language."}, "i77": {"tr": "Yerel Üretim", "en": "Local Sourcing"}, "i78": {"tr": "Türkiye'deki organik tedarikçilerle çalışıyoruz; hurmadan hindistancevizine izlenebilir kaynak.", "en": "We work with organic suppliers across Turkey; traceable sourcing from dates to coconut."}, "i79": {"tr": "Sürdürülebilirlik", "en": "Sustainability"}, "i80": {"tr": "Ambalajdan tedarik zincirine, çevresel etkiyi azaltmayı sürekli gözden geçiriyoruz.", "en": "From packaging to supply chain, we constantly reassess how to reduce our environmental impact."}, "i81": {"tr": "Toplum Sağlığı", "en": "Community Wellness"}, "i82": {"tr": "Sporcu beslenmesinden aile sofralarına, herkes için erişilebilir gerçek protein.", "en": "From athletic nutrition to family tables, real protein accessible to everyone."}, "i83": {"tr": "Bize Ulaş", "en": "Get in Touch"}, "i84": {"tr": "Sorularınız, işbirliği teklifleriniz ya da toptan satış talepleriniz için buradayız.", "en": "For questions, partnership proposals, or wholesale inquiries, we're here."}, "i85": {"tr": "Roots'u Nereden", "en": "Where Can You"}, "i86": {"tr": "Alabilirsin?", "en": "Get Roots?"}, "i87": {"tr": "Çok yakında bu online marketlerde listelenecek.", "en": "Coming soon to these online markets."}, "i88": {"tr": "Migros Sanal Market", "en": "Migros Online"}, "i89": {"tr": "Şirket", "en": "Company"}, "i90": {"tr": "Kariyer", "en": "Careers"}, "i91": {"tr": "İletişim", "en": "Contact"}, "i92": {"tr": "© 2026 ROOTS ORGANİK GIDA A.Ş.", "en": "© 2026 ROOTS ORGANIC FOODS INC."}, "i93": {"tr": "İSTANBUL, TÜRKİYE", "en": "ISTANBUL, TURKEY"}, "marquee": {"tr": "<span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span><span>HURMA</span><span>BADEM</span><span>KAJU</span><span>HİNDİSTANCEVİZİ</span><span>KUARK</span><span>YABAN MERSİNİ</span><span>MUZ</span><span>KAKAO</span><span>SADE YOĞURT</span><span>BAL</span><span>CHIA TOHUMU</span><span>DENİZ TUZU</span>", "en": "<span>DATES</span><span>ALMONDS</span><span>CASHEWS</span><span>COCONUT</span><span>QUARK</span><span>BLUEBERRY</span><span>BANANA</span><span>COCOA</span><span>PLAIN YOGURT</span><span>HONEY</span><span>CHIA SEEDS</span><span>SEA SALT</span><span>DATES</span><span>ALMONDS</span><span>CASHEWS</span><span>COCONUT</span><span>QUARK</span><span>BLUEBERRY</span><span>BANANA</span><span>COCOA</span><span>PLAIN YOGURT</span><span>HONEY</span><span>CHIA SEEDS</span><span>SEA SALT</span>"}};
+
+  window.currentLang = 'tr';
+
+  function applyLang(lang){
+    window.currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const entry = I18N[key];
+      if(entry && entry[lang] !== undefined){ el.innerHTML = entry[lang]; }
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      const entry = I18N[key];
+      if(entry && entry[lang] !== undefined){ el.setAttribute('placeholder', entry[lang]); }
+    });
+    document.querySelectorAll('[data-i18n-val]').forEach(el => {
+      const key = el.getAttribute('data-i18n-val');
+      const entry = I18N[key];
+      if(entry && entry[lang] !== undefined){ el.setAttribute('value', entry[lang]); }
+    });
+  }
+
+  async function detectAndApplyLang(){
+    try{
+      const res = await fetch('https://ipapi.co/json/');
+      if(res.ok){
+        const geo = await res.json();
+        if(geo && geo.country_code && geo.country_code !== 'TR'){
+          applyLang('en');
+        }
+      }
+    } catch(err){
+      /* geolocation lookup failed — silently keep Turkish default */
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', detectAndApplyLang);
+</script>
+</body>
+</html>
